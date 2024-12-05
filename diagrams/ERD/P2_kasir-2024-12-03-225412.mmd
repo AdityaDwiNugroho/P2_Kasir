@@ -1,0 +1,53 @@
+erDiagram
+    User {
+        int id_user
+        string nama_user
+        string username
+        string password
+        enum user_priv
+        string alamat
+        string hp
+        string status
+    }
+    
+    Pelanggan {
+        int id_pelanggan
+        string nama
+        string alamat
+        string hp
+    }
+
+    Kategori {
+        string id_kategori
+        string nama_kategori
+    }
+
+    Produk {
+        int id_produk
+        string nama_produk
+        decimal harga_beli
+        decimal harga_jual
+        int stok
+        string barcode
+    }
+
+    Penjualan {
+        int id_penjualan
+        decimal diskon
+        decimal total_harga
+        datetime tanggal_penjualan
+    }
+
+    DetailPenjualan {
+        int id
+        decimal harga_jual
+        int qty
+        decimal sub_total
+        datetime tanggal_penjualan
+    }
+
+    User ||--o{ Penjualan : "creates"
+    Pelanggan ||--o{ Penjualan : "places"
+    Kategori ||--o{ Produk : "categorizes"
+    Produk ||--o{ DetailPenjualan : "contains"
+    Penjualan ||--o{ DetailPenjualan : "includes"

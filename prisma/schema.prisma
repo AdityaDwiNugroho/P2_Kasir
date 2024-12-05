@@ -13,8 +13,80 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+enum Role {
+  ADMIN
+  OPERATOR
+}
+
+enum Status {
+  EMPLOYED
+  TERMINATED
+}
+
 model User {
-  id Int @id @default(autoincrement())
-  name String @unique
-  password String?
+  id_user    Int      @id @default(autoincrement())
+  nama_user  String
+  username   String   @unique
+  // email      String? , gak jadi pake email, admin can reset password
+  avatar    String?
+  password   String
+  Role  Role
+  alamat     String
+  hp         String
+  status     Status
+  Penjualan  Penjualan[]
+  
+}
+
+model Pelanggan {
+  id_pelanggan Int      @id @default(autoincrement())
+  nama         String
+  alamat       String
+  hp           String
+  Penjualan    Penjualan[]
+}
+
+model Kategori {
+  id_kategori   String   @id
+  nama_kategori String
+  Produk        Produk[]
+}
+
+model Produk {
+  id_produk    Int              @id @default(autoincrement())
+  nama_produk  String
+  harga_beli   Decimal
+  harga_jual   Decimal
+  stok         Int
+  barcode      String
+  Kategori     Kategori         @relation(fields: [kategoriId], references: [id_kategori])
+  kategoriId   String
+  DetailPenjualan DetailPenjualan[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Penjualan {
+  id_penjualan      Int              @id @default(autoincrement())
+  diskon            Decimal
+  total_harga       Decimal
+  tanggal_penjualan DateTime
+  userId            Int
+  pelangganId       Int
+  User              User             @relation(fields: [userId], references: [id_user])
+  Pelanggan         Pelanggan        @relation(fields: [pelangganId], references: [id_pelanggan])
+  DetailPenjualan   DetailPenjualan[]
+}
+
+model DetailPenjualan {
+  id               Int      @id @default(autoincrement())
+  harga_jual       Decimal
+  qty              Int
+  sub_total        Decimal
+  tanggal_penjualan DateTime
+  produkId         Int
+  penjualanId      Int
+  Produk           Produk   @relation(fields: [produkId], references: [id_produk])
+  Penjualan        Penjualan @relation(fields: [penjualanId], references: [id_penjualan])
 }
