@@ -21,7 +21,7 @@ export default defineEventHandler(async(event) => {
             nama_user: "doe",
             username: 'doe',
             password: hashedPassword,
-            Role: 'OPERATOR',
+            role: 'OPERATOR',
             status: 'EMPLOYED',
             hp: '081234567890',
             alamat: 'St. Jalan',

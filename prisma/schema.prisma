@@ -31,12 +31,14 @@ model User {
   // email      String? , gak jadi pake email, admin can reset password
   avatar    String?
   password   String
-  Role  Role
+  role  Role
   alamat     String
   hp         String
   status     Status
   Penjualan  Penjualan[]
-  
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  deleted_at DateTime? // for soft delete if needed later
 }
 
 model Pelanggan {
@@ -58,8 +60,8 @@ model Produk {
   nama_produk  String
   harga_beli   Decimal
   harga_jual   Decimal
-  stok         Int
-  barcode      String
+  stok         Int             @default(0)
+  barcode      String @unique
   Kategori     Kategori         @relation(fields: [kategoriId], references: [id_kategori])
   kategoriId   String
   DetailPenjualan DetailPenjualan[]

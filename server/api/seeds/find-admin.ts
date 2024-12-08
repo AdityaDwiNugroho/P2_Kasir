@@ -2,7 +2,7 @@ import prisma from "~/server/utils/prisma";
 async function main() {
   const admins = await prisma.user.findMany({
     where: {
-      Role: 'ADMIN', 
+      role: 'ADMIN', 
     },
     select: {
       id_user: true,

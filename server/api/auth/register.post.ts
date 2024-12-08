@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
       nama_user,
       username: prefixedUsername,
       password: hashedPassword,
-      Role: role.toUpperCase(),
+      role: role.toUpperCase(),
       avatar : '',
       alamat,
       hp,
@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
       id_user: user.id_user,
       nama_user: user.nama_user,
       username: user.username,
-      role: user.Role,
+      role: user.role,
     },
   };
 });

@@ -3,12 +3,14 @@ import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken"
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secret'
+if(!JWT_SECRET && process.env.JWT_SECRET ==='production') {
+  throw new Error('JWT_SECRET is not defined in the environment variables')
+}
 
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event)
     const { username, password } = body
-
 
     if(!username || !password) {
       throw createError({
@@ -41,16 +43,23 @@ export default defineEventHandler(async (event) => {
     const tokenPayload = {
       id_user: user.id_user,
       username: user.username,
-      Role: user.Role,
+      Role: user.role,
     }
     const accessToken = jwt.sign(tokenPayload, JWT_SECRET, {expiresIn: '1d'})
+
+    setCookie(event, 'auth_token', accessToken, {
+      httpOnly: true,
+      secure: process.env.JWT_SECRET === 'production',
+      sameSite: 'none',
+      path: '/'
+    })
 
     return {
       access_token: accessToken,
       user: {
         id_user: user.id_user,
         username: user.username,
-        Role: user.Role,
+        Role: user.role,
       }
     }
   } catch (error) {

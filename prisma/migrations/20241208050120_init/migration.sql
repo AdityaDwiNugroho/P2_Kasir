@@ -11,10 +11,13 @@ CREATE TABLE "User" (
     "username" TEXT NOT NULL,
     "avatar" TEXT,
     "password" TEXT NOT NULL,
-    "Role" "Role" NOT NULL,
+    "role" "Role" NOT NULL,
     "alamat" TEXT NOT NULL,
     "hp" TEXT NOT NULL,
     "status" "Status" NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+    "deleted_at" TIMESTAMP(3),
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id_user")
 );
@@ -43,7 +46,7 @@ CREATE TABLE "Produk" (
     "nama_produk" TEXT NOT NULL,
     "harga_beli" DECIMAL(65,30) NOT NULL,
     "harga_jual" DECIMAL(65,30) NOT NULL,
-    "stok" INTEGER NOT NULL,
+    "stok" INTEGER NOT NULL DEFAULT 0,
     "barcode" TEXT NOT NULL,
     "kategoriId" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -79,6 +82,9 @@ CREATE TABLE "DetailPenjualan" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Produk_barcode_key" ON "Produk"("barcode");
 
 -- AddForeignKey
 ALTER TABLE "Produk" ADD CONSTRAINT "Produk_kategoriId_fkey" FOREIGN KEY ("kategoriId") REFERENCES "Kategori"("id_kategori") ON DELETE RESTRICT ON UPDATE CASCADE;

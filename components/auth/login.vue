@@ -11,7 +11,7 @@
           <label for="username" class="block text-sm font-medium text-gray-300 mb-2">Username</label>
           <div class="relative">
             <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-              <Icon icon="line-md:account text-gray-400" />
+              <Icon icon="line-md:account" class=" text-gray-400" />
             </span>
             <input v-model="username" type="text" id="username" required placeholder="Enter your username"
               class="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300" />
@@ -21,7 +21,7 @@
           <label for="password" class="block text-sm font-medium text-gray-300 mb-2">Password</label>
           <div class="relative">
             <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-              <Icon icon="mdi mdi-lock text-gray-400" />
+              <Icon icon="material-symbols-light:lock-outline" class="text-gray-400" />
             </span>
             <input v-model="password" type="password" id="password" required placeholder="Enter your password"
               class="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300" />
